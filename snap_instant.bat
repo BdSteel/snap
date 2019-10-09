@@ -1,0 +1,1 @@
+Powershell.exe -executionpolicy remotesigned -File "D:\Programming\Repositories\Snap\snap.ps1"
