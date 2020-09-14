@@ -58,35 +58,46 @@ function Move-Window([System.IntPtr]$WindowHandle, [switch]$Top, [switch]$Bottom
   [pInvoke]::MoveWindow($WindowHandle, $X, $Y, $width, $height, $true)
 }
 
-$PSVersionTable
+$windows = @{}
 
-$windows = Get-Content 'config.json' | Out-String | ConvertFrom-Json -AsHashtable
-Write-Host $windows
+function Get-Window([System.IntPtr]$WindowHandle, $name){
+    Write-Host '-----'
+    Write-Host 'Name: ' $name
 
+    $rect = New-Object RECT
+    [pInvoke]::GetWindowRect($WindowHandle, [ref]$rect) > $null
 
-
-if ($windows){
-    ForEach ( $window in $windows.Keys){
-        Write-Host $window
-
-        $procID = Get-Process $window
-        Move-Window -WindowHandle ($procID.MainWindowHandle | Where-Object {$_ -ne 0}) -x $windows[$window]['x'] -y $windows[$window]['y'] -width $windows[$window]['width'] -height $windows[$window]['height'] > $null
+    # get which screen the app has been spawned into
+    $activeScreen = [System.Windows.Forms.Screen ]::FromHandle($WindowHandle).Bounds
+    $x = $rect.left
+    Write-Host "X:"         $x
+    $y = $rect.top
+    Write-Host "Y:"         $y
+    $width = ($rect.right - $rect.left)
+    Write-Host "Width:"     $width
+    $height = ($rect.bottom - $rect.top)
+    Write-Host "Height:"    $height
     
-    }
+    $windows[$name] = @{}
+    $windows[$name]['x'] = $x
+    $windows[$name]['y'] = $y
+    $windows[$name]['width'] = $width
+    $windows[$name]['height'] = $height
 }
-else {
-    $procID = Get-Process 'Chrome'
-    Move-Window -WindowHandle ($procID.MainWindowHandle | Where-Object {$_ -ne 0}) -x -1127 -y 453 -width 1134 -height 1047 > $null
 
-    $procID = Get-Process 'Discord'
-    Move-Window -WindowHandle ($procID.MainWindowHandle | Where-Object {$_ -ne 0}) -x 2560 -y -138 -width 1083 -height 940 > $null
+$procID = Get-Process 'Chrome'
+Get-Window ($procID.MainWindowHandle | Where-Object {$_ -ne 0}) -name  'Chrome'
 
-    $procID = Get-Process 'Steam'
-    Move-Window -WindowHandle ($procID.MainWindowHandle | Where-Object {$_ -ne 0}) -x 0 -y 0 -width 2560 -height 1400 > $null
+$procID = Get-Process 'Discord'
+Get-Window ($procID.MainWindowHandle | Where-Object {$_ -ne 0}) -name  'Discord'
 
-    $procID = Get-Process 'steamwebhelper'
-    Move-Window -WindowHandle ($procID.MainWindowHandle | Where-Object {$_ -ne 0}) -x 2560 -y 802 -width 1080 -height 940 > $null
+$procID = Get-Process 'Steam'
+Get-Window ($procID.MainWindowHandle | Where-Object {$_ -ne 0}) -name  'Steam'
 
-    $procID = Get-Process 'Spotify'
-    Move-Window -WindowHandle ($procID.MainWindowHandle | Where-Object {$_ -ne 0}) -x -1920 -y 453 -width 800 -height 1040 > $null
-}
+$procID = Get-Process 'steamwebhelper'
+Get-Window ($procID.MainWindowHandle | Where-Object {$_ -ne 0}) -name  'steamwebhelper'
+
+$procID = Get-Process 'Spotify'
+Get-Window ($procID.MainWindowHandle | Where-Object {$_ -ne 0}) -name  'Spotify'
+
+$windows | ConvertTo-Json -Depth 10 | Out-File .\config.json

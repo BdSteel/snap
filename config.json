@@ -1,0 +1,32 @@
+{
+  "Steam": {
+    "x": 0,
+    "width": 2560,
+    "y": 0,
+    "height": 1400
+  },
+  "Spotify": {
+    "x": -1920,
+    "width": 800,
+    "y": 453,
+    "height": 1040
+  },
+  "Chrome": {
+    "x": -1127,
+    "width": 1134,
+    "y": 453,
+    "height": 1047
+  },
+  "Discord": {
+    "x": 2558,
+    "width": 1082,
+    "y": -138,
+    "height": 940
+  },
+  "steamwebhelper": {
+    "x": 2560,
+    "width": 1080,
+    "y": 802,
+    "height": 940
+  }
+}
