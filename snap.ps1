@@ -58,12 +58,7 @@ function Move-Window([System.IntPtr]$WindowHandle, [switch]$Top, [switch]$Bottom
   [pInvoke]::MoveWindow($WindowHandle, $X, $Y, $width, $height, $true)
 }
 
-$PSVersionTable
-
 $windows = Get-Content 'config.json' | Out-String | ConvertFrom-Json -AsHashtable
-Write-Host $windows
-
-
 
 if ($windows){
     ForEach ( $window in $windows.Keys){
@@ -71,7 +66,13 @@ if ($windows){
 
         $procID = Get-Process $window
         Move-Window -WindowHandle ($procID.MainWindowHandle | Where-Object {$_ -ne 0}) -x $windows[$window]['x'] -y $windows[$window]['y'] -width $windows[$window]['width'] -height $windows[$window]['height'] > $null
-    
+        
+        <#
+        $windows[$window]['x']
+        $windows[$window]['y']
+        $windows[$window]['width']
+        $windows[$window]['height']
+        #>
     }
 }
 else {
