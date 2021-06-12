@@ -58,7 +58,20 @@ function Move-Window([System.IntPtr]$WindowHandle, [switch]$Top, [switch]$Bottom
   [pInvoke]::MoveWindow($WindowHandle, $X, $Y, $width, $height, $true)
 }
 
-$windows = Get-Content 'config.json' | Out-String | ConvertFrom-Json -AsHashtable
+if((Get-CimInstance Win32_VideoController).MaxRefreshRate -eq 144){
+    Write-Host "3 monitors detected"
+    $windows = Get-Content 'C:\Users\bdste\Documents\Repositories\Snap\config.json' | Out-String | ConvertFrom-Json -AsHashtable
+} else {
+    Write-Host "2 monitors detected"
+    $windows = Get-Content 'C:\Users\bdste\Documents\Repositories\Snap\config2.json' | Out-String | ConvertFrom-Json -AsHashtable
+}
+
+
+
+
+
+
+
 
 if ($windows){
     ForEach ( $window in $windows.Keys){

@@ -100,4 +100,10 @@ Get-Window ($procID.MainWindowHandle | Where-Object {$_ -ne 0}) -name  'steamweb
 $procID = Get-Process 'Spotify'
 Get-Window ($procID.MainWindowHandle | Where-Object {$_ -ne 0}) -name  'Spotify'
 
-$windows | ConvertTo-Json -Depth 10 | Out-File .\config.json
+if((Get-CimInstance Win32_VideoController).MaxRefreshRate -eq 144){
+    $windows | ConvertTo-Json -Depth 10 | Out-File C:\Users\bdste\Documents\Repositories\Snap\config.json
+    Write-Host "1"
+} else {
+    $windows | ConvertTo-Json -Depth 10 | Out-File C:\Users\bdste\Documents\Repositories\Snap\config2.json
+    Write-Host "2"
+}
