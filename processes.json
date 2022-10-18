@@ -1,0 +1,9 @@
+{
+    "processes": [
+        "Chrome",
+        "Discord",
+        "Steam",
+        "steamwebhelper",
+        "Spotify"
+    ]
+}

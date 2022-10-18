@@ -1,32 +1,32 @@
 {
+  "Steam": {
+    "x": 0,
+    "y": 0,
+    "height": 1400,
+    "width": 2560
+  },
   "steamwebhelper": {
-    "height": 648,
-    "y": 1102,
-    "x": 2560,
-    "width": 1080
-  },
-  "Chrome": {
-    "height": 1047,
-    "y": 464,
-    "x": -1927,
-    "width": 974
-  },
-  "Discord": {
-    "height": 1040,
-    "y": 464,
-    "x": -960,
-    "width": 960
+    "x": 3680,
+    "y": 84,
+    "height": 440,
+    "width": 800
   },
   "Spotify": {
-    "height": 1233,
-    "y": -130,
-    "x": 2560,
-    "width": 1080
+    "x": 3680,
+    "y": 524,
+    "height": 600,
+    "width": 800
   },
-  "Steam": {
-    "height": 1400,
-    "y": 0,
-    "x": 0,
-    "width": 2560
+  "Discord": {
+    "x": 2560,
+    "y": 84,
+    "height": 1040,
+    "width": 1120
+  },
+  "Chrome": {
+    "x": -1928,
+    "y": 173,
+    "height": 1056,
+    "width": 1936
   }
 }
