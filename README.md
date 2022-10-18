@@ -14,6 +14,7 @@ Windows 10 or higher
 - Find the process name, right click, properties
 - The name will be something like "spotify.exe" copy the text except for the extension ".exe"
 - Paste this into `process.json` following the json array formatting in the example.
+
 (All example process names in `processes.json` can be removed as requried)
 3. Manually organise your windows in the location you want them to be moved back to then run `save_instant.bat`
 5. Whenever you want to move your windows back to this location run `snap_instant.bat`
